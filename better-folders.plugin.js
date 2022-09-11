@@ -1,4 +1,3 @@
-
 /**
  * @name BetterFolders
  * @author bluely_ (kaden.sh)
