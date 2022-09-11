@@ -27,4 +27,4 @@ to recognize the boundaries between folders, and see what folder you are in when
 - Background colour will not automatically update when adjusting folder colours.
   Closing the folder and re-opening it will fix this issue.
 
-![Read more words!](assets/better-folders-1.png)
+![1](assets/better-folders-1.png) ![2](assets/better-folders-2.png)
