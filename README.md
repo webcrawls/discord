@@ -7,7 +7,17 @@ This repository contains a collection of BetterDiscord plugins that make my life
 >
 > Open to PRs and suggestions!
 
+## Installation
+
+1. Install [BetterDiscord](https://betterdiscord.app/)
+2. Download the plugins you want, and move them to your BetterDiscord plugins folder
+3. Enable the plugin
+4. ???
+5. Profit XDDDDDDDDDD
+
 ## `better-folders` 
+
+[direct download link](https://raw.githubusercontent.com/kadenscott/bbb/master/better-folders.plugin.js?)
 
 BetterFolders applies a folder's icon colour to it's background when expanded. In my opinion, this makes it far easier
 to recognize the boundaries between folders, and see what folder you are in when it takes up the whole height.
