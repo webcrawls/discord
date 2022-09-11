@@ -1,7 +1,7 @@
 /**
  * @name BetterFolders
  * @author bluely_ (kaden.sh)
- * @description BetterFolders applies a folder's icon colour to it's background when expanded.
+ * @description BetterFolders applies a folder's icon colour to its background when expanded.
  * @version 1.0.0
  */
 module.exports = class MyPlugin {

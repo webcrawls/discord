@@ -19,7 +19,7 @@ This repository contains a collection of BetterDiscord plugins that make my life
 
 [direct download link](https://raw.githubusercontent.com/kadenscott/bbb/master/better-folders.plugin.js?)
 
-BetterFolders applies a folder's icon colour to it's background when expanded. In my opinion, this makes it far easier
+BetterFolders applies a folder's icon colour to its background when expanded. In my opinion, this makes it far easier
 to recognize the boundaries between folders, and see what folder you are in when it takes up the whole height.
 
 **Caveats**:
