@@ -14,9 +14,7 @@ module.exports = class MyPlugin {
         for (let wrapper of document.getElementsByClassName(FOLDER_WRAPPER)) {
             wrapper.addEventListener("click", (e) => {
                 setTimeout(() => {
-                    console.log("catuching click event on wrapper")
                     let wrapper = findAncestor(e.target, "." + FOLDER_WRAPPER)
-                    console.log({wrapper})
                     applyCssColoursToFolderWrapper(wrapper)
                 }, 50)
             })
@@ -36,8 +34,6 @@ let FOLDER_ICON_WRAPPER = "expandedFolderIconWrapper-3RwQpD"
 let EXPANDED_FOLDER_BACKGROUND = "expandedFolderBackground-1kSAf6"
 
 function updateAllFolders() {
-    console.log("updating all folders");
-
     for (let wrapper of document.getElementsByClassName(FOLDER_WRAPPER)) {
         applyCssColoursToFolderWrapper(wrapper)
     }
@@ -47,22 +43,11 @@ function applyCssColoursToFolderWrapper(wrapper) {
     let expandedBackground = getExpandedBackground(wrapper)
     let iconWrapper = getIconWrapper(wrapper)
     if (iconWrapper == null) {
-        console.log("iconWrapper null, returning")
         return
     }
 
-    console.log(iconWrapper)
-
     let svg = iconWrapper.querySelector("svg")
-
-    console.log({
-        expandedBackground,
-        iconWrapper,
-    });
-
     let folderColor = svg.style.color;
-
-    console.log("found color: " + folderColor)
 
     if (!expandedBackground.classList.contains(FOLDER_COLLAPSED)) {
         expandedBackground.style.backgroundColor = folderColor;
