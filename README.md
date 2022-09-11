@@ -1,8 +1,11 @@
 # Blue's BetterDiscord 🅱️lugins
 
-> If you are looking for high quality JavaScript code, you will not find that here.
+This repository contains a collection of BetterDiscord plugins that make my life easier in some way.
+(well.. going to. Just one plugin for now.)
+
+> 🚨 These plugins were not designed with JavaScript best practices in mind - I just wanted to make something that works.
 >
-> Open to PRs!
+> Open to PRs and suggestions!
 
 ## `better-folders` 
 
