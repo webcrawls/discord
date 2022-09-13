@@ -26,5 +26,6 @@ to recognize the boundaries between folders, and see what folder you are in when
 
 - Background colour will not automatically update when adjusting folder colours.
   Closing the folder and re-opening it will fix this issue.
+- Occasionally, folder background colours won't be applied during BetterDiscord's startup sequence. Until I can properly troubleshoot this issue, an easy fix is reloading the plugin if you are missing background colours.
 
 ![1](assets/better-folders-1.png) ![2](assets/better-folders-2.png)
