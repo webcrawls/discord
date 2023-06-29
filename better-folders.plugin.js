@@ -1,77 +1,56 @@
 /**
  * @name BetterFolders
- * @author bluely_ (kaden.sh)
- * @description BetterFolders applies a folder's icon colour to its background when expanded.
- * @version 1.0.0
+ * @author webcrawls
+ * @description Applies a folder's icon colour to its background when expanded.
+ * @version 1.1.0
  */
 module.exports = class MyPlugin {
-    constructor(meta) {
-        // Do stuff in here before starting
-    }
-
-    start() {
-        for (let wrapper of document.getElementsByClassName(FOLDER_WRAPPER)) {
-            wrapper.addEventListener("click", (e) => {
-                setTimeout(() => {
-                    let wrapper = findAncestor(e.target, "." + FOLDER_WRAPPER)
-                    applyCssColoursToFolderWrapper(wrapper)
-                }, 50)
-            })
-        }
-
-        updateAllFolders()
-    }
-
-    stop() {
-        // Cleanup when disabled
-    }
+    start = () => Array.from(document.getElementsByClassName(FOLDER_WRAPPER)).forEach(updateFolder)
+    stop = () => Array.from(document.getElementsByClassName(FOLDER_WRAPPER)).forEach(resetFolder)
 };
 
-let FOLDER_WRAPPER = "wrapper-38slSD"
-let FOLDER_COLLAPSED = "collapsed-uGXEbi"
-let FOLDER_ICON_WRAPPER = "expandedFolderIconWrapper-3RwQpD"
-let EXPANDED_FOLDER_BACKGROUND = "expandedFolderBackground-1kSAf6"
+// Discord HTML classname constants
+const FOLDER_WRAPPER = "wrapper-38slSD"
+const FOLDER_COLLAPSED = "collapsed-uGXEbi"
+const FOLDER_ICON_WRAPPER = "expandedFolderIconWrapper-3RwQpD"
+const EXPANDED_FOLDER_BACKGROUND = "expandedFolderBackground-1kSAf6"
 
-function updateAllFolders() {
-    for (let wrapper of document.getElementsByClassName(FOLDER_WRAPPER)) {
-        applyCssColoursToFolderWrapper(wrapper)
+// Utility methods to get key elements
+const folderIcon = (el) => el.getElementsByClassName(FOLDER_ICON_WRAPPER)[0];
+const folderBackground = (el) => el.getElementsByClassName(EXPANDED_FOLDER_BACKGROUND)[0];
+
+// State
+const observers = {}
+
+    /**
+ * Updates a folder's background color with the icon color.
+ * @param folder the folder wrapper element
+ */
+const updateFolder = (folder) => {
+    const background = folderBackground(folder)
+    const icon = folderIcon(folder)
+    const svg = icon?.querySelector("svg")
+    const folderColor = svg?.style?.color;
+
+    if (!folderColor) return;
+
+    if (!background.classList.contains(FOLDER_COLLAPSED)) {
+        background.style.backgroundColor = folderColor;
+        background.style.opacity = 0.3;
     }
+
+    folder.addEventListener("click", () => updateFolder(this))
+    const observer = new MutationObserver((mutations) => updateFolder(folder))
+
+    observer.observe(svg, {attributes: true, attributeFilter: ['style']})
+    observers[folder] = observer
 }
 
-function applyCssColoursToFolderWrapper(wrapper) {
-    let expandedBackground = getExpandedBackground(wrapper)
-    let iconWrapper = getIconWrapper(wrapper)
-    if (iconWrapper == null) {
-        return
-    }
+const resetFolder = (folder) => {
+    const background = folderBackground(folder)
+    background.style.removeProperty("background-color");
+    background.style.removeProperty("opacity");
+    observers[folder]?.disconnect()
 
-    let svg = iconWrapper.querySelector("svg")
-    let folderColor = svg.style.color;
-
-    if (!expandedBackground.classList.contains(FOLDER_COLLAPSED)) {
-        expandedBackground.style.backgroundColor = folderColor;
-        expandedBackground.style.opacity = 0.3;
-    }
-}
-
-function getIconWrapper(wrapper) {
-    return wrapper.getElementsByClassName(FOLDER_ICON_WRAPPER)[0]
-}
-
-function getExpandedBackground(wrapper) {
-    return wrapper.getElementsByClassName(EXPANDED_FOLDER_BACKGROUND)[0]
-}
-
-
-function findAncestor(el, sel) {
-    if (typeof el.closest === 'function') {
-        return el.closest(sel) || null;
-    }
-    while (el) {
-        if (el.matches(sel)) {
-            return el;
-        }
-        el = el.parentElement;
-    }
-    return null;
+    folder.removeEventListener("click", () =>  updateFolder(this))
 }

@@ -12,3 +12,12 @@ To install a plugin, you must first ensure [BetterDiscord](#) is installed on yo
 - Restart/reload Discord
 
 ## Plugins
+
+### BetterFolders
+
+When setting a folder's icon colour through Discord, the BetterFolders plugin will apply the colour to the folder
+background, as well. I found this improves readability substantially.
+
+> Please be aware, there are still a few outstanding issues with this plugin.
+
+![Demo gif](/assets/better-folders.gif)
