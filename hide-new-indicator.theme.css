@@ -1,0 +1,10 @@
+/**
+ * @name HiddenNewIndicator
+ * @author webcrawls
+ * @description Hides the "NEW" indicator. We already know, Discord!
+ * @version 1.0.0
+ */
+
+.unreadMentionsBar-ZXXoOH {
+    display: none;
+}
