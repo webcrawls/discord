@@ -1,8 +1,8 @@
 /**
- * @name BetterFolders
+ * @name PrettyFolders
  * @author webcrawls
  * @description Applies a folder's icon colour to its background when expanded.
- * @version 1.1.0
+ * @version 1.2.0
  */
 module.exports = class MyPlugin {
     start = () => Array.from(document.getElementsByClassName(FOLDER_WRAPPER)).forEach(attachFolder)
