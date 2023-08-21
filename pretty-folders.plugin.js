@@ -38,8 +38,6 @@ const attachFolder = (folderElement) => {
 }
 
 const detachFolder = (folderElement) => {
-    console.log("Disconnecting", folderElement)
-    console.log(observers[folderElement])
     observers[folderElement]?.disconnect()
     observers[folderElement] = null
 }
