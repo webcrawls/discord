@@ -10,10 +10,10 @@ module.exports = class MyPlugin {
 };
 
 // Discord HTML classname constants
-const FOLDER_WRAPPER = "wrapper-38slSD"
-const FOLDER_COLLAPSED = "collapsed-uGXEbi"
-const FOLDER_ICON_WRAPPER = "expandedFolderIconWrapper-3RwQpD"
-const EXPANDED_FOLDER_BACKGROUND = "expandedFolderBackground-1kSAf6"
+const FOLDER_WRAPPER = "wrapper_ed1dea"
+const FOLDER_COLLAPSED = "collapsed__0a270"
+const FOLDER_ICON_WRAPPER = "expandedFolderIconWrapper__458cf"
+const EXPANDED_FOLDER_BACKGROUND = "expandedFolderBackground__1bec6"
 
 // Utility methods to get key elements
 // Not exactly happy with how these, but hey, they're one-liners :D
