@@ -3,6 +3,8 @@
  * @author webcrawls
  * @description Applies a folder's icon colour to its background when expanded.
  * @version 1.2.1
+ * @source https://github.com/webcrawls/discord
+ * @updateUrl https://github.com/webcrawls/discord/edit/master/pretty-folders.plugin.js
  */
 module.exports = class MyPlugin {
     start = () => Array.from(document.getElementsByClassName(FOLDER_WRAPPER)).forEach(attachFolder)
