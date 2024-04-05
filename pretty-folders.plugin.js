@@ -18,21 +18,48 @@ const FOLDER_COLLAPSED = "collapsed__98ad5"
 const FOLDER_ICON_WRAPPER = "expandedFolderIconWrapper__324c1"
 const EXPANDED_FOLDER_BACKGROUND = "expandedFolderBackground_b1385f"
 
-// Utility methods to get key elements
-// Not exactly happy with how these, but hey, they're one-liners :D
-const folderIcon = (el) => "getElementsByClassName" in el ? el.getElementsByClassName(FOLDER_ICON_WRAPPER)[0] : undefined
-const folderBackground = (el) => "getElementsByClassName" in el ? el.getElementsByClassName(EXPANDED_FOLDER_BACKGROUND)[0] : undefined
 
-// State. MutationObservers are thrown in here
+/**
+ * Returns the folder icon element, if any, within the provided element.
+ *
+ * @param el an HTMLElement
+ * @returns an HTMLElement or null
+ */
+const folderIcon = (el) => "getElementsByClassName" in el ? el.getElementsByClassName(FOLDER_ICON_WRAPPER)[0] : null
+
+/**
+ * Returns the folder background element, if any, within the provided element.
+ *
+ * @param el an HTMLElement
+ * @returns an HTMLElement or null
+ */
+const folderBackground = (el) => "getElementsByClassName" in el ? el.getElementsByClassName(EXPANDED_FOLDER_BACKGROUND)[0] : null
+
+/**
+ * State that maps a root folder HTML element to it's MutationObserver.
+ *
+ * @type {Object.<HTMLElement, MutationObserver>}
+ */
 const observers = {}
 
-// A bit of a hack. "#updateFolder" reads this string when updating a folder.
-// If the icon's SVG color is one of these, i.e. "white", which it will be after we make it look better,
-// the function will not make any modifications.
+/**
+ * Used for a dumb hack.
+ *
+ * If a folder icon's SVG is a colour in this array, the colour won't be changed by the plugin.
+ * Currently, we change the folder icon's colour to 'white'. So we're telling the plugin to skip any changes that
+ * we've already made.
+ *
+ * @type {string[]}
+ */
 const ignoredColors = [
     "white"
 ]
 
+/**
+ * Creates a MutationObserver that listens for changes to a folder wrapper.
+ *
+ * @param folderElement the folder wrapper element
+ */
 const attachFolder = (folderElement) => {
     const observer = new MutationObserver(() => setTimeout(updateFolder.bind(this, folderElement), 1))
     observer.observe(folderElement, {childList: true, attributes: true})
@@ -40,6 +67,11 @@ const attachFolder = (folderElement) => {
     updateFolder(folderElement)
 }
 
+/**
+ * Removes a MutationObserver for a folder wrapper.
+ *
+ * @param folderElement the folder wrapper element
+ */
 const detachFolder = (folderElement) => {
     observers[folderElement]?.disconnect()
     observers[folderElement] = null
@@ -47,6 +79,7 @@ const detachFolder = (folderElement) => {
 
 /**
  * Updates a folder's background color with the icon color.
+ *
  * @param folder the folder wrapper element
  */
 const updateFolder = (folder) => {
@@ -77,6 +110,11 @@ const updateFolder = (folder) => {
     observers[folder] = observer
 }
 
+/**
+ * Resets any changes to a folder wrapper.
+ *
+ * @param folder the folder wrapper element
+ */
 const resetFolder = (folder) => {
     const background = folderBackground(folder)
     background.style.removeProperty("background-color");
