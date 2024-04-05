@@ -2,6 +2,8 @@
 
 A collection of BetterDiscord plugins to tweak and improve my user experience.
 
+Looking for support or to discuss changes to one of my plugins? Feel free to join my [Discord server](https://discord.gg/6eTbbrXes8)!
+
 ## Installation
 
 To install a plugin, you must first ensure [BetterDiscord](#) is installed on your system.
