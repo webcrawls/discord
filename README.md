@@ -24,4 +24,4 @@ white. These changes are mostly to improve readability, and I think they look go
 > Please be aware, there are still a few outstanding issues with this plugin.
 > You might need to reload the plugin if you create a new folder.
 
-![Demo gif](/assets/better-folders.gif)
+![Demo gif](https://github.com/webcrawls/discord/blob/master/assets/better-folders.gif?raw=true)
