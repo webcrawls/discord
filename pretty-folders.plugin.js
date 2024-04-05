@@ -8,16 +8,15 @@
  * @updateUrl https://raw.githubusercontent.com/webcrawls/discord/master/pretty-folders.plugin.js
  */
 module.exports = class MyPlugin {
-    start = () => Array.from(document.getElementsByClassName(FOLDER_WRAPPER)).forEach(attachFolder)
-    stop = () => Array.from(document.getElementsByClassName(FOLDER_WRAPPER)).forEach(detachFolder)
+    start = () => Array.from(document.querySelectorAll(FOLDER_WRAPPER)).forEach(attachFolder)
+    stop = () => Array.from(document.querySelectorAll(FOLDER_WRAPPER)).forEach(detachFolder)
 };
 
 // Discord HTML classname constants
-const FOLDER_WRAPPER = "wrapper__832f2"
-const FOLDER_COLLAPSED = "collapsed__98ad5"
-const FOLDER_ICON_WRAPPER = "expandedFolderIconWrapper__324c1"
-const EXPANDED_FOLDER_BACKGROUND = "expandedFolderBackground_b1385f"
-
+const FOLDER_WRAPPER = "div[aria-label='Servers'] > div[class^='wrapper__']"
+const FOLDER_COLLAPSED = "span[class^='expandedFolderBackground'], span[class^='collapsed__']"
+const FOLDER_ICON_WRAPPER = "div[class^='expandedFolderIconWrapper']"
+const EXPANDED_FOLDER_BACKGROUND = "span[class^='expandedFolderBackground']"
 
 /**
  * Returns the folder icon element, if any, within the provided element.
@@ -25,7 +24,7 @@ const EXPANDED_FOLDER_BACKGROUND = "expandedFolderBackground_b1385f"
  * @param el an HTMLElement
  * @returns an HTMLElement or null
  */
-const folderIcon = (el) => "getElementsByClassName" in el ? el.getElementsByClassName(FOLDER_ICON_WRAPPER)[0] : null
+const folderIcon = (el) => "getElementsByClassName" in el ? el.querySelectorAll(FOLDER_ICON_WRAPPER)[0] : null
 
 /**
  * Returns the folder background element, if any, within the provided element.
@@ -33,7 +32,7 @@ const folderIcon = (el) => "getElementsByClassName" in el ? el.getElementsByClas
  * @param el an HTMLElement
  * @returns an HTMLElement or null
  */
-const folderBackground = (el) => "getElementsByClassName" in el ? el.getElementsByClassName(EXPANDED_FOLDER_BACKGROUND)[0] : null
+const folderBackground = (el) => "getElementsByClassName" in el ? el.querySelectorAll(EXPANDED_FOLDER_BACKGROUND)[0] : null
 
 /**
  * State that maps a root folder HTML element to it's MutationObserver.
@@ -95,7 +94,7 @@ const updateFolder = (folder) => {
 
     if (!folderColor) return;
 
-    if (!background.classList.contains(FOLDER_COLLAPSED) && ignoredColors.indexOf(folderColor) === -1) {
+    if (!background.matches(FOLDER_COLLAPSED) && ignoredColors.indexOf(folderColor) === -1) {
         background.style.backgroundColor = folderColor;
         icon.style.backgroundColor = folderColor
         svg.style.color = "white"
