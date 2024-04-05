@@ -3,7 +3,7 @@
  * @author webcrawls
  * @authorLink https://github.com/webcrawls
  * @description Applies a folder's icon colour to its background when expanded.
- * @version 1.2.1
+ * @version 1.2.2
  * @source https://github.com/webcrawls/discord
  * @updateUrl https://raw.githubusercontent.com/webcrawls/discord/master/pretty-folders.plugin.js
  */
