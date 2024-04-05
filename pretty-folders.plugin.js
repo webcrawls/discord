@@ -14,7 +14,7 @@ module.exports = class MyPlugin {
 
 // Discord HTML classname constants
 const FOLDER_WRAPPER = "div[aria-label='Servers'] > div[class^='wrapper__']"
-const FOLDER_COLLAPSED = "span[class^='expandedFolderBackground'], span[class^='collapsed__']"
+const FOLDER_COLLAPSED = "span[class^='expandedFolderBackground'][class^='collapsed__']"
 const FOLDER_ICON_WRAPPER = "div[class^='expandedFolderIconWrapper']"
 const EXPANDED_FOLDER_BACKGROUND = "span[class^='expandedFolderBackground']"
 
@@ -24,7 +24,7 @@ const EXPANDED_FOLDER_BACKGROUND = "span[class^='expandedFolderBackground']"
  * @param el an HTMLElement
  * @returns an HTMLElement or null
  */
-const folderIcon = (el) => "getElementsByClassName" in el ? el.querySelectorAll(FOLDER_ICON_WRAPPER)[0] : null
+const folderIcon = (el) => "querySelector" in el ? el.querySelector(FOLDER_ICON_WRAPPER) : null
 
 /**
  * Returns the folder background element, if any, within the provided element.
@@ -32,7 +32,7 @@ const folderIcon = (el) => "getElementsByClassName" in el ? el.querySelectorAll(
  * @param el an HTMLElement
  * @returns an HTMLElement or null
  */
-const folderBackground = (el) => "getElementsByClassName" in el ? el.querySelectorAll(EXPANDED_FOLDER_BACKGROUND)[0] : null
+const folderBackground = (el) => "querySelector" in el ? el.querySelector(EXPANDED_FOLDER_BACKGROUND) : null
 
 /**
  * State that maps a root folder HTML element to it's MutationObserver.
@@ -64,6 +64,8 @@ const attachFolder = (folderElement) => {
     observer.observe(folderElement, {childList: true, attributes: true})
     observers[folderElement] = observer
     updateFolder(folderElement)
+
+    console.info("[PrettyFolders] attached observer to ", folderElement)
 }
 
 /**
@@ -74,6 +76,7 @@ const attachFolder = (folderElement) => {
 const detachFolder = (folderElement) => {
     observers[folderElement]?.disconnect()
     observers[folderElement] = null
+    console.info("[PrettyFolders] removed observer from ", folderElement)
 }
 
 /**
@@ -84,15 +87,22 @@ const detachFolder = (folderElement) => {
 const updateFolder = (folder) => {
     const background = folderBackground(folder)
     if (!background) {
-        console.warn("could not find background element for", {folder})
+        console.warn("[PrettyFolders] could not find background element for", {folder})
         return
     }
 
     const icon = folderIcon(folder)
+    if (!icon) {
+        console.warn("[PrettyFolders] could not find icon element for", {folder})
+        return
+    }
+
     const svg = icon?.querySelector("svg")
     const folderColor = svg?.style?.color;
 
-    if (!folderColor) return;
+    if (!folderColor) {
+        console.info("[PrettyFolders] skipping style changes (no custom colour found), ", folder)
+    }
 
     if (!background.matches(FOLDER_COLLAPSED) && ignoredColors.indexOf(folderColor) === -1) {
         background.style.backgroundColor = folderColor;
@@ -100,6 +110,8 @@ const updateFolder = (folder) => {
         svg.style.color = "white"
         svg.style.opacity = 0.7;
         background.style.opacity = 0.3;
+    } else {
+        console.info("[PrettyFolders] skipping style changes (collapsed or ignored colour), ", folder)
     }
 
     folder.addEventListener("click", () => updateFolder(this))
