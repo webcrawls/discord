@@ -1,10 +1,13 @@
 /**
  * @name PrettyFolders
  * @author webcrawls
- * @authorLink https://github.com/webcrawls
- * @description Applies a folder's icon colour to its background when expanded.
  * @version 1.2.3
+ * @description Applies a folder's icon colour to its background when expanded.
  * @source https://github.com/webcrawls/discord
+ * @invite 6eTbbrXes8
+ * @authorId 1057917670781095977
+ * @authorLink https://github.com/webcrawls
+ * @website https://github.com/webcrawls/discord
  * @updateUrl https://raw.githubusercontent.com/webcrawls/discord/master/pretty-folders.plugin.js
  */
 module.exports = class MyPlugin {
